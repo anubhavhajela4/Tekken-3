@@ -1,0 +1,22 @@
+* {
+    margin: 0px;
+    padding:0px;
+    box-sizing: border-box;
+    overflow:hidden;
+}
+body {
+    background-color: #333333;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+#canvas {
+    background-image: url("/Tekken-3/assets/Fighting_Background.png");
+    background-size: cover;
+    background-position: center;
+    display: block;
+    width: 1300px;
+    height: 600px;
+    border-radius: 20px;
+}
