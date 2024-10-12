@@ -26,10 +26,10 @@ class Sprite {
         c.fillStyle=this.color;
         c.fillRect(this.position.x,this.position.y,this.width,this.height);
         //attack box 
-        // if(this.isAttacking) {
+         if(this.isAttacking) {
             c.fillStyle='green';
             c.fillRect(this.attackBox.position.x,this.attackBox.position.y,this.attackBox.width,this.attackBox.height);
-        // }
+         }
     }
     update() {
         this.draw();
@@ -99,7 +99,17 @@ const keys = {
         pressed:false
     }
 }
-
+//added rectangle collision detection
+function rectangularCollision ({
+    rectangle1,rectangle2
+}) {
+    return (
+        rectangle1.attackBox.position.x+rectangle1.attackBox.width>=rectangle2.position.x && 
+        rectangle1.attackBox.position.x<=rectangle2.position.x+rectangle2.width &&
+        rectangle1.attackBox.position.y+rectangle1.attackBox.height>=rectangle2.position.y&&
+        rectangle1.attackBox.position.y<=rectangle2.position.y+rectangle2.height
+    )
+}
 
 function animate () {
     window.requestAnimationFrame(animate);
@@ -123,15 +133,25 @@ function animate () {
         enemy.velocity.x=-5;
     }
     //attack collision detection
-    if(player.attackBox.position.x+player.attackBox.width>=enemy.position.x && 
-        player.attackBox.position.x<=enemy.position.x+enemy.width &&
-        player.attackBox.position.y+player.attackBox.height>=enemy.position.y&&
-        player.attackBox.position.y<=enemy.position.y+enemy.height &&
+    if(rectangularCollision({
+        rectangle1:player,
+        rectangle2:enemy
+    }) &&
         player.isAttacking) {
             player.isAttacking=false;
+            document.getElementbyquerySelector('#enemyHealth').innerText=parseInt(document.getElementbyquerySelector('#enemyHealth').innerText)-1
         }
 
 }
+if(rectangularCollision({
+    rectangle1:enemy,
+    rectangle2:player
+}) &&
+    enemy.isAttacking) {
+        enemy.isAttacking=false;
+    }
+
+
 animate();
 window.addEventListener('keydown',(event)=> {
     switch(event.key) {
@@ -161,6 +181,10 @@ window.addEventListener('keydown',(event)=> {
         case 'ArrowUp' :
         enemy.velocity.y=-10;
         break;
+        //enemy gonna attack whenever we press down array key
+        case 'ArrowDown' :
+        enemy.attack();
+        break; 
     }
 });
 
