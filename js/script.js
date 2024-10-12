@@ -1,2 +1,4 @@
-var canvas = document.getElementById('canvas');
-var c = canvas.getContext('2d');
+document.getElementById("startButton").addEventListener("click", remove);
+function remove() {
+  window.location.href = "./game.html";
+}
