@@ -183,7 +183,7 @@ window.addEventListener('keydown',(event)=> {
         break;
         //enemy gonna attack whenever we press down array key
         case 'ArrowDown' :
-        enemy.isAttacking=true;
+        enemy.attack();
         break; 
     }
 });
