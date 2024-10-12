@@ -16,7 +16,8 @@ body {
     background-size: cover;
     background-position: center;
     display: block;
-    width: 1300px;
-    height: 600px;
     border-radius: 20px;
+}
+img {
+    display: none;
 }
