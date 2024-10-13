@@ -4,16 +4,7 @@ const c = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
-//c.fillRect(0, 0, canvas.width, canvas.height)
-/* 
-    issues
-    health bar
-    timer
-    can even jump in mid air 
-    add boundary collisions 
-    attack box is not accurate
-*/
-const gravity = 0.8;
+const gravity = 0.7;
 
 
 const player = new Fighter({
@@ -129,7 +120,7 @@ const enemy = new Fighter({
     },
     attackBox: {
         offset: {
-            x: 100,
+            x: -100, //fixed enemy attack box
             y: 50
         },
         width: 160,
@@ -165,12 +156,17 @@ c.clearRect(0, 0, canvas.width, canvas.height)
 
   // player movement
 
+  // Player movement
   if (keys.a.pressed && player.lastKey === 'a') {
-    player.velocity.x = -5;
-    player.switchSprite('run');
+    if (player.position.x >= -100) {
+      player.velocity.x = -2.5;
+      player.switchSprite('run');
+    }
   } else if (keys.d.pressed && player.lastKey === 'd') {
-    player.velocity.x = 5;
-    player.switchSprite('run');
+    if (player.position.x <=810) {
+      player.velocity.x = 2.5;
+      player.switchSprite('run');
+    }
   } else {
     player.switchSprite('idle');
   }
@@ -184,11 +180,15 @@ c.clearRect(0, 0, canvas.width, canvas.height)
 
   // Enemy movement
   if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
-    enemy.velocity.x = -5;
-    enemy.switchSprite('run');
+    if (enemy.position.x >= -120) {
+      enemy.velocity.x = -2.5;
+      enemy.switchSprite('run');
+    }
   } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-    enemy.velocity.x = 5;
-    enemy.switchSprite('run');
+    if (enemy.position.x <= 780) {
+      enemy.velocity.x = 2.5;
+      enemy.switchSprite('run');
+    }
   } else {
     enemy.switchSprite('idle');
   }
@@ -209,7 +209,8 @@ c.clearRect(0, 0, canvas.width, canvas.height)
     player.isAttacking &&
     player.framesCurrent === 4
   ) {
-    enemy.takeHit()
+    enemy.takeHit();
+    document.querySelector('#enemyHealth').style.width = `${this.health}%`;
     player.isAttacking = false;
   }
 
@@ -228,6 +229,7 @@ c.clearRect(0, 0, canvas.width, canvas.height)
     enemy.framesCurrent === 2
   ) {
     player.takeHit();
+    document.querySelector('#playerHealth').style.width = `${this.health}%`;
     enemy.isAttacking = false;
   }
 
@@ -256,7 +258,9 @@ window.addEventListener('keydown', (event) => {
         player.lastKey = 'a';
         break;
       case 'w':
-        player.velocity.y = -20;
+        if (player.position.y + player.height >= canvas.height-130) {
+        player.velocity.y = -15;
+        }
         break;
       case ' ':
         player.attack();
@@ -275,7 +279,8 @@ window.addEventListener('keydown', (event) => {
         enemy.lastKey = 'ArrowLeft';
         break;
       case 'ArrowUp':
-        enemy.velocity.y = -20;
+        if(enemy.position.y + enemy.height >= canvas.height-130)
+        enemy.velocity.y = -15;
         break;
       case 'ArrowDown':
         enemy.attack();

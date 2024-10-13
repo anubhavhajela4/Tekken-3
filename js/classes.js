@@ -89,7 +89,7 @@ class Sprite {
       this.health = 100
       this.framesCurrent = 0
       this.framesElapsed = 0
-      this.framesHold = 5
+      this.framesHold = 10
       this.sprites = sprites
       this.dead = false
   
@@ -105,15 +105,8 @@ class Sprite {
   
       // attack boxes
       this.attackBox.position.x = this.position.x + this.attackBox.offset.x
-      this.attackBox.position.y = this.position.y + this.attackBox.offset.y
+      this.attackBox.position.y = this.position.y + this.attackBox.offset.y 
   
-      // draw the attack box
-      // c.fillRect(
-      //   this.attackBox.position.x,
-      //   this.attackBox.position.y,
-      //   this.attackBox.width,
-      //   this.attackBox.height
-      // )
   
       this.position.x += this.velocity.x
       this.position.y += this.velocity.y
@@ -127,15 +120,19 @@ class Sprite {
   
     attack() {
       this.switchSprite('attack1')
-      this.isAttacking = true
+      this.isAttacking = true;
     }
   
     takeHit() {
-      this.health -= 20
-  
+      this.health -= 20;
+      if (this === player) {
+        document.querySelector('#playerHealth').style.width = `${this.health}%`;
+      } else if (this === enemy) {
+        document.querySelector('#enemyHealth').style.width = `${this.health}%`;
+      }
       if (this.health <= 0) {
-        this.switchSprite('death')
-      } else this.switchSprite('takeHit')
+        this.switchSprite('death');
+      } else this.switchSprite('takeHit');
     }
   
     switchSprite(sprite) {
