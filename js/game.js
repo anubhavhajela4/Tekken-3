@@ -15,7 +15,7 @@ class Sprite {
         this.framesCurrent=0;
         this.framesElapsed=0;
         this.framesHold=1;
-        this.offset=offset
+        this.offset=offset;
     }
     draw () {
         c.drawImage(
@@ -28,7 +28,7 @@ class Sprite {
             this.position.y-this.offset.y,
             (this.image.width/this.framesMax) * this.scale,
             this.image.height * this.scale
-        )
+        );
     }
     animateFrames () {
         this.framesElapsed++;
@@ -47,7 +47,7 @@ class Sprite {
     }
 }
 class Fighter extends Sprite {
-    constructor({position,velocity,color='red', imageSrc,scale=1,framesMax=1,offset={x:0,y:0}})   {
+    constructor({position,velocity,color='red', imageSrc,scale=1,framesMax=1,offset={x:0,y:0},sprites,attackBox})   {
         super({
             position,
             imageSrc,
@@ -64,9 +64,9 @@ class Fighter extends Sprite {
                 x:this.position.x,
                 y:this.position.y
             },
-            offset :offset,
-            width:100,
-            height:50
+            offset: attackBox.offset,
+            width: attackBox.width,
+            height: attackBox.height
         } ;
         this.color=color;
         this.isAttacking;
@@ -74,6 +74,12 @@ class Fighter extends Sprite {
         this.framesCurrent=0;
         this.framesElapsed=0;
         this.framesHold=6;
+        this.sprites = sprites;
+        for (const sprite in this.sprites) {
+            this.sprites[sprite].image = new Image();
+            this.sprites[sprite].image.src = this.sprites[sprite].imageSrc;
+        }
+
     }
 
     update() {
@@ -95,6 +101,12 @@ class Fighter extends Sprite {
             this.isAttacking=false;
         },100)
     }
+    switchSprite(sprite) {
+        if (this.image === this.sprites[sprite].image && this.framesCurrent < this.framesMax - 1) return;
+        this.image = this.sprites[sprite].image;
+        this.framesMax = this.sprites[sprite].framesMax;
+        this.framesCurrent = 0;
+    }
 }
 
 const player = new Fighter ( {
@@ -112,11 +124,42 @@ const player = new Fighter ( {
     },
     imageSrc:'../assets/player/Idle.png',
     framesMax:10,
-    scale:3,
+    scale:2.5,
     offset: {
         x:0,
         y:130
+    },
+    sprites: {
+        idle: {
+            imageSrc:'../assets/player/Idle.png',
+            framesMax:10
+        },
+        run: {
+            imageSrc:'../assets/player/Run.png',
+            framesMax:8
+        },
+        jump: {
+            imageSrc:'../assets/player/Jump.png',
+            framesMax:3
+        },
+        fall: {
+            imageSrc:'../assets/player/Fall.png',
+            framesMax:3
+        },
+        attack1: {
+            imageSrc:'../assets/player/Attack1.png',
+            framesMax:7
+        }
+    },
+    attackBox: {
+        offset: {
+            x: 100,
+            y: 50
+        },
+        width: 160,
+        height: 50
     }
+
 });
 
 const enemy = new Fighter ( {
