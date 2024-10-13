@@ -153,8 +153,40 @@ function animate () {
                 player.health-=10;
                 document.querySelector('#playerHealth').style.width = player.health +'%';
             }
+        //end game based on health
+        if(player.health<=0 || enemy.health<=0) {
+            determineWinner({player,enemy,timerId});
+        }
 }
 
+function determineWinner({player,enemy,timerId}) {   
+    clearTimeout(timerId); 
+    if(player.health===enemy.health ) {
+        document.querySelector('#displayText').innerHTML='Tie';
+        document.querySelector('#displayText').style.display='flex';
+    }
+    else if(player.health>enemy.health ) {
+        document.querySelector('#displayText').innerHTML='KO! Player Wins';
+        document.querySelector('#displayText').style.display='flex';
+    }
+    else if(enemy.health>player.health ) {
+        document.querySelector('#displayText').innerHTML='KO! Enemy Wins';
+        document.querySelector('#displayText').style.display='flex';
+    }
+}
+let timer =60;
+let timerId;
+function decreaseTimer() {
+    if(timer>0) {
+    timerId = setTimeout(decreaseTimer,1000);
+    timer--;
+    document.querySelector('#timer').innerHTML=timer;
+    }
+    if(timer ===0) {
+        determineWinner({player,enemy,timerId});
+    }
+}
+decreaseTimer();
 
 animate();
 window.addEventListener('keydown',(event)=> {
