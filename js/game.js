@@ -21,6 +21,7 @@ class Sprite {
         } ;
         this.color=color;
         this.isAttacking;
+        this.health=100;
     }
     draw () {
         c.fillStyle=this.color;
@@ -139,17 +140,20 @@ function animate () {
     }) &&
         player.isAttacking) {
             player.isAttacking=false;
-            document.getElementbyquerySelector('#enemyHealth').innerText=parseInt(document.getElementbyquerySelector('#enemyHealth').innerText)-1
+            enemy.health-=10;
+            document.querySelector('#enemyHealth').style.width = enemy.health +'%';
         }
 
+        if(rectangularCollision({
+            rectangle1:enemy,
+            rectangle2:player
+        }) && 
+            enemy.isAttacking) {
+                enemy.isAttacking=false;
+                player.health-=10;
+                document.querySelector('#playerHealth').style.width = player.health +'%';
+            }
 }
-if(rectangularCollision({
-    rectangle1:enemy,
-    rectangle2:player
-}) &&
-    enemy.isAttacking) {
-        enemy.isAttacking=false;
-    }
 
 
 animate();
@@ -181,7 +185,7 @@ window.addEventListener('keydown',(event)=> {
         case 'ArrowUp' :
         enemy.velocity.y=-10;
         break;
-        //enemy gonna attack whenever we press down array key
+        //enemy gonna attack whenever we press down arrow key
         case 'ArrowDown' :
         enemy.attack();
         break; 
