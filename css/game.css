@@ -12,7 +12,7 @@ body {
     align-items: center;
 }
 #canvas {
-    background-image: url("/assets/Fighting_Background.png");
+    background-image: url("../assets/Fighting_Background.png");
     background-size: cover;
     background-position: center;
     display: block;

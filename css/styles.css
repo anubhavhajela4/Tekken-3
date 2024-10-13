@@ -12,7 +12,7 @@ body {
     align-items: center;
 }
 #canvas {
-    background-image: url("/assets/bg.png");
+    background-image: url("../assets/bg.png");
     background-color: black;
     background-size: cover;
     background-position: center;
