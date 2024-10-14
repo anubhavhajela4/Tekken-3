@@ -12,13 +12,24 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   
   function determineWinner({ player, enemy, timerId }) {
     clearTimeout(timerId);
-    document.querySelector('#displayText').style.display = 'flex';
+    const displayText = document.querySelector('#displayText');
+    displayText.style.display = 'flex';
+    displayText.style.color = 'red'; 
+    displayText.style.fontSize = '50px'; 
     if (player.health === enemy.health) {
-      document.querySelector('#displayText').innerHTML = 'Tie';
-    } else if (player.health > enemy.health) {
-      document.querySelector('#displayText').innerHTML = 'Player 1 Wins';
-    } else if (player.health < enemy.health) {
-      document.querySelector('#displayText').innerHTML = 'Player 2 Wins';
+      displayText.innerHTML = 'Tie';
+    } else if (player.health > enemy.health && player.health !== 100) {
+      displayText.innerHTML = 'KO ! Player WIN';
+    } else if (player.health < enemy.health && enemy.health !== 100) {
+      displayText.innerHTML = 'KO ! Enemy WIN';
+    }
+    else if(player.health > enemy.health && player.health === 100) {
+      displayText.style.color='yellow';
+      displayText.innerHTML = 'PERFECT ! Player WIN';
+    }
+    else if(player.health < enemy.health && enemy.health === 100) {
+      displayText.style.color='yellow';
+      displayText.innerHTML = 'PERFECT ! Enemy WIN';
     }
   }
   
