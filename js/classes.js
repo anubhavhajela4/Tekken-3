@@ -46,8 +46,8 @@ class Sprite {
     }
   
     update() {
-      this.draw()
-      this.animateFrames()
+      this.draw();
+      this.animateFrames();      
     }
   }
   
@@ -71,10 +71,10 @@ class Sprite {
         offset
       })
   
-      this.velocity = velocity
-      this.width = 50
-      this.height = 150
-      this.lastKey
+      this.velocity = velocity;
+      this.width = 50;
+      this.height = 150;
+      this.lastKey;
       this.attackBox = {
         position: {
           x: this.position.x,
@@ -84,18 +84,18 @@ class Sprite {
         width: attackBox.width,
         height: attackBox.height
       }
-      this.color = color
-      this.isAttacking
-      this.health = 100
-      this.framesCurrent = 0
-      this.framesElapsed = 0
-      this.framesHold = 10
-      this.sprites = sprites
-      this.dead = false
+      this.color = color;
+      this.isAttacking;
+      this.health = 100;
+      this.framesCurrent = 0;
+      this.framesElapsed = 0;
+      this.framesHold = 10;
+      this.sprites = sprites;
+      this.dead = false;
   
       for (const sprite in this.sprites) {
-        sprites[sprite].image = new Image()
-        sprites[sprite].image.src = sprites[sprite].imageSrc
+        sprites[sprite].image = new Image();
+        sprites[sprite].image.src = sprites[sprite].imageSrc;
       }
     }
   

@@ -62,7 +62,7 @@ const player = new Fighter({
             x: 100,
             y: 50
         },
-        width: 160,
+        width: 90,
         height: 50
     }
 })
@@ -120,10 +120,10 @@ const enemy = new Fighter({
     },
     attackBox: {
         offset: {
-            x: -100, //fixed enemy attack box
+            x: -130, //fixed enemy attack box
             y: 50
         },
-        width: 160,
+        width: 90,
         height: 50
     }
 })
