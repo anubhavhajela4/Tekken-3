@@ -62,7 +62,7 @@ const player = new Fighter({
             x: 100,
             y: 50
         },
-        width: 90,
+        width: 70,
         height: 50
     }
 })
@@ -120,7 +120,7 @@ const enemy = new Fighter({
     },
     attackBox: {
         offset: {
-            x: -130, //fixed enemy attack box
+            x: -120, //fixed enemy attack box
             y: 50
         },
         width: 90,
@@ -210,7 +210,7 @@ c.clearRect(0, 0, canvas.width, canvas.height)
     player.framesCurrent === 4
   ) {
     enemy.takeHit();
-    document.querySelector('#enemyHealth').style.width = `${this.health}%`;
+    document.querySelector('#enemyHealth').style.width = `${enemy.health}%`;
     player.isAttacking = false;
   }
 
@@ -229,7 +229,7 @@ c.clearRect(0, 0, canvas.width, canvas.height)
     enemy.framesCurrent === 2
   ) {
     player.takeHit();
-    document.querySelector('#playerHealth').style.width = `${this.health}%`;
+    document.querySelector('#playerHealth').style.width = `${player.health}%`;
     enemy.isAttacking = false;
   }
 
@@ -307,5 +307,10 @@ window.addEventListener('keyup', (event) => {
     case 'ArrowLeft':
       keys.ArrowLeft.pressed = false;
       break;
+  }
+});
+window.addEventListener('keypress', (event) => {
+  if (event.key === 'r') {
+    window.location.reload();
   }
 });
