@@ -6,17 +6,17 @@ class Sprite {
       framesMax = 1,
       offset = { x: 0, y: 0 }
     }) {
-      this.position = position
-      this.width = 50
-      this.height = 150
-      this.image = new Image()
-      this.image.src = imageSrc
-      this.scale = scale
-      this.framesMax = framesMax
-      this.framesCurrent = 0
-      this.framesElapsed = 0
-      this.framesHold = 5
-      this.offset = offset
+      this.position = position;
+      this.width = 50;
+      this.height = 150;
+      this.image = new Image();
+      this.image.src = imageSrc;
+      this.scale = scale;
+      this.framesMax = framesMax;
+      this.framesCurrent = 0;
+      this.framesElapsed = 0;
+      this.framesHold = 5;
+      this.offset = offset;
     }
   
     draw() {
@@ -34,13 +34,13 @@ class Sprite {
     }
   
     animateFrames() {
-      this.framesElapsed++
+      this.framesElapsed++;
   
       if (this.framesElapsed % this.framesHold === 0) {
         if (this.framesCurrent < this.framesMax - 1) {
-          this.framesCurrent++
+          this.framesCurrent++;
         } else {
-          this.framesCurrent = 0
+          this.framesCurrent = 0;
         }
       }
     }
