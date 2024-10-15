@@ -131,6 +131,10 @@ class Sprite {
         document.querySelector('#enemyHealth').style.width = `${this.health}%`;
       }
       if (this.health <= 0) {
+        if(this === player)
+        playerDieSound.play();
+        else
+        enemyDieSound.play();
         this.switchSprite('death');
       } else this.switchSprite('takeHit');
     }

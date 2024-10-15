@@ -6,6 +6,10 @@ canvas.height = 576;
 
 const gravity = 0.7;
 
+const playerAttackSound = document.getElementById('playerAttackSound');
+const playerDieSound = document.getElementById('playerDieSound');
+const enemyAttackSound = document.getElementById('enemyAttackSound');
+const enemyDieSound = document.getElementById('enemyDieSound');
 
 const player = new Fighter({
     position: {
@@ -264,6 +268,7 @@ window.addEventListener('keydown', (event) => {
         break;
       case ' ':
         player.attack();
+        playerAttackSound.play();
         break;
     }
   }
@@ -284,6 +289,7 @@ window.addEventListener('keydown', (event) => {
         break;
       case 'ArrowDown':
         enemy.attack();
+        enemyAttackSound.play();
         break;
     }
   }
@@ -313,4 +319,4 @@ window.addEventListener('keypress', (event) => {
   if (event.key === 'r') {
     window.location.reload();
   }
-});
+}); 
